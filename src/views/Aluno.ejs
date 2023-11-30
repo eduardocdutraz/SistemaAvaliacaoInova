@@ -1,0 +1,19 @@
+<h1>Lista de Alunos</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Nome</th>
+            <th>Matrícula</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (let aluno of alunos) { %>
+            <tr>
+                <td><%= aluno.idAluno %></td>
+                <td><%= aluno.nome %></td>
+                <td><%= aluno.matricula %></td>
+            </tr>
+        <% } %>
+    </tbody>

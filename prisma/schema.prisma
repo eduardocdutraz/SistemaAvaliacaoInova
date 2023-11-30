@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,24 +6,27 @@ datasource db {
   provider = "sqlite"
   url      = "file:./dev.db"
 }
+
 model Group {
-  id        Int   @id
-  nome      String   @unique
-  membros    Aluno[]
+  id        Int         @id @default(autoincrement())
+  nome      String      @unique
   resumo    String
   nota      Float
-  avaliador Avaliador[]
-  }
-model Aluno {
-  matricula Int  @id
-  nome  String
-  nota  Float
-  grupoId  Int
-  grupo Group @relation(fields: [grupoId], references:[id])
+  membros   Aluno[]
+  avaliador Avaliador[] @relation("AvaliadorToGroup")
 }
-model Avaliador {
-  id       Int  @id 
+
+model Aluno {
+  matricula Int    @id @default(autoincrement())
   nome      String
-  grupos    Group[]
-  notas     Float
+  nota      Float
+  grupoId   Int
+  grupo     Group  @relation(fields: [grupoId], references: [id])
+}
+
+model Avaliador {
+  id     Int     @id @default(autoincrement())
+  nome   String
+  notas  Float
+  grupos Group[] @relation("AvaliadorToGroup")
 }
